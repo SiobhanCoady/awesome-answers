@@ -20,7 +20,30 @@ Rails.application.routes.draw do
 
   post('/contact', { to: 'contact#create', as: 'contact_submit' })
 
-  get('/questions/new', { to: 'questions#new', as: 'new_question' })
+  # resources :contacts, only: [:new, :create]
+
+  resources :questions
+  # get('/questions/new', { to: 'questions#new', as: 'new_question' })
+  # post('/questions', { to: 'questions#create', as: 'questions' })
+  #
+  # # The order of the url matteres because Rails gives higher priority for routes
+  # # that appear first. If the below were listed before '/questions/new',
+  # # '/questions/new' would try to load 'questions#show'.
+  # get('/questions/:id', { to: 'questions#show', as: 'question' })
+  #
+  # # Note that we don't need to put 'as:' option in here because we used the same
+  # # URL for the create action. Verb doesn't matter. 'questions_path' was already
+  # # defined for 'post('/questions')'. Rails will throw an error if you try to
+  # # reuse a predefined path helper. Remember that is 'as:' option defines a
+  # # path/url helper, which only generates a url and isn't concerned about the
+  # # verb.
+  # get('/questions', { to: 'questions#index' })
+  #
+  # get('/questions/:id/edit', { to: 'questions#edit', as: 'edit_question' })
+  #
+  # patch('/questions/:id', { to: 'questions#update' })
+  #
+  # delete('/questions/:id', { to: 'questions#destroy' })
 
   # the home page is a little different...
   # this will make the home page of the application go to WelcomeController with

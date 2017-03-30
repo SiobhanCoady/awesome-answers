@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Awesome Answers</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+    <!-- <a href="/">Home</a>  -->
+
+    <%# link_to is a built-in Rails view helper that generates an '<a>' tag.
+        The first argument is the anchor text and the second argument is the
+        URL or Path. It's best to use Rails generated path/url helpers %>
+    <%= link_to 'Home', root_path %>
+    |
+    <!-- use path when linking within your website -->
+    <%= link_to 'About', about_path %>
+    <!-- linking from outside your website, you need to use url -->
+    <!-- the 'link_to' below will work, but will have absolute location rather
+    than relative -->
+    <!-- <%= link_to 'About', about_url %> -->
+    |
+    <%= link_to 'Contact', contact_path %>
+    <hr>
+    <%= yield %>
+  </body>
+</html>

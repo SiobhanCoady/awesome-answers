@@ -3,6 +3,32 @@
 # All the functionalities we're going to be using in our Question model come from
 # 'ActiveRecord::Base', which leverages Ruby's meta programming features.
 class Question < ApplicationRecord
+  has_many :answers
+
+  # has_many :answers adds the following instance methods to this model,
+  # Questions:
+  # answers
+  # answers<<(object, ...)
+  # answers.delete(object, ...)
+  # answers.destroy(object, ...)
+  # answers=(objects)
+  # answers_singular_ids
+  # answers_singular_ids=(ids)
+  # answers.clear
+  # answers.empty?
+  # answers.size
+  # answers.find(...)
+  # answers.where(...)
+  # answers.exists?(...)
+  # answers.build(attributes = {}, ...)
+  # answers.create(attributes = {})
+  # answers.create!(attributes = {})
+  # http://guides.rubyonrails.org/association_basics.html#has-many-association-reference
+
+  # as of Rails 5, belongs_to :subject will enforce a validation that the
+  # association must be present by default (subject required). To make it optional
+  # give 'belongs_to' a second argument, 'optional: true'
+  belongs_to :subject, optional: true
 
   validates(:title, { presence: { message: 'must be present!' },
   # can use your own message instead of just 'true'

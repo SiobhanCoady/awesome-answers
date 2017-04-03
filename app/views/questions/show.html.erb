@@ -1,5 +1,8 @@
 <h1><%= @question.title %></h1>
 <p><%= @question.body %></p>
+<!-- <p><strong>Subject: </strong><%= @question.subject.name if @question.subject %></p> -->
+<p><strong>Subject: </strong><%= @question.subject&.name %></p>
+
 
 <%= link_to 'Edit', edit_question_path(@question) %>
 
@@ -8,3 +11,26 @@ attribute for 'link_to'. Rails uses JavaScript to accomplish that. %>
 <%= link_to 'Delete', question_path(@question),
                       method: :delete,
                       data: { confirm: 'Are you sure?' } %>
+
+
+<h2>Answers</h2>
+
+<%= @answer.errors.full_messages.join(', ') %>
+<%# action = /questions/:question_id/answers %>
+<%= form_for [@question, @answer] do |f| %>
+  <%= f.text_area :body %>
+  <%= f.submit %>
+<% end %>
+
+<hr>
+
+<% @question.answers.each do |answer| %>
+  <p><%= answer.body %></p>
+  <%= link_to(
+    'Delete',
+    question_answer_path(@question, answer),
+    method: :delete,
+    data: { confirm: 'Are you sure?' }
+  ) %>
+  <hr>
+<% end %>

@@ -70,6 +70,7 @@ class QuestionsController < ApplicationController
   def show
     # @question = Question.find params[:id]
     # render json: params
+    @answer = Answer.new
   end
 
   def index

@@ -22,7 +22,14 @@ Rails.application.routes.draw do
 
   # resources :contacts, only: [:new, :create]
 
-  resources :questions
+  resources :questions do
+    resources :answers, only: [:create, :destroy]
+    # Nesting resources :answers, only: [:create, :destroy] in resources :questions
+    # will create routes for create and destroy (or all routes if not specified)
+    # When using their helper methods to generate ths path to the routes (e.g.
+    # question_answers_path) make sure to include a question_id as argument or
+    # a question model.
+  end
   # get('/questions/new', { to: 'questions#new', as: 'new_question' })
   # post('/questions', { to: 'questions#create', as: 'questions' })
   #

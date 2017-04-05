@@ -30,6 +30,8 @@ class Question < ApplicationRecord
   # give 'belongs_to' a second argument, 'optional: true'
   belongs_to :subject, optional: true
 
+  belongs_to :user, optional: true
+
   validates(:title, { presence: { message: 'must be present!' },
   # can use your own message instead of just 'true'
                       uniqueness: true })

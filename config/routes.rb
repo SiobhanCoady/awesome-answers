@@ -30,6 +30,15 @@ Rails.application.routes.draw do
     # question_answers_path) make sure to include a question_id as argument or
     # a question model.
   end
+
+  resources :users, only: [:new, :create]
+
+  resources :sessions, only: [:new, :create] do
+    # when you define a route with 'on: :collection' option, it skips having an
+    # ':id' or ':session_id' as part of the generated url.
+    delete :destroy, on: :collection
+  end
+
   # get('/questions/new', { to: 'questions#new', as: 'new_question' })
   # post('/questions', { to: 'questions#create', as: 'questions' })
   #

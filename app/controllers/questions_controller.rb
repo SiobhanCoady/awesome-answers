@@ -36,8 +36,6 @@ class QuestionsController < ApplicationController
     @question = Question.new question_params
     @question.user = current_user
     if @question.save
-      # redirect_to question_path({id: @question.id})
-      # redirect_to question_path(@question.id)
 
       # Rails gives us access to 'flash' object, which looks like a Hash. flash
       # utilizes cookies to store a bit of information that we can access in the
@@ -70,8 +68,6 @@ class QuestionsController < ApplicationController
   #   "id": "245"
   # }
   def show
-    # @question = Question.find params[:id]
-    # render json: params
     @answer = Answer.new
   end
 
@@ -80,13 +76,16 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    # @question = Question.find params[:id]
+    # can? is a helper method that came from CanCanCan, which helps us enforce
+    # permission rules in the controllers and views.
+    redirect_to root_path, alert: 'Access denied' unless can? :edit, @question
   end
 
   def update
-    # @question = Question.find params[:id]
-    # question_params = params.require(:question).permit([:title, :body])
-    if @question.update(question_params)
+    if !(can? :edit, @question)
+      # if the user does not have permission to edit/update the question, redirect
+      redirect_to root_path, alert: 'Access denied' unless can? :edit, @question
+    elsif @question.update(question_params)
       redirect_to question_path(@question), notice: 'Question Deleted'
     else
       render :edit
@@ -94,9 +93,12 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    # question = Question.find params[:id]
-    @question.destroy
-    redirect_to questions_path, notice: 'Question Deleted'
+    if can? :destroy, @question
+      @question.destroy
+      redirect_to questions_path, notice: 'Question Deleted'
+    else
+      redirect_to root_path, alert: 'Access denied'
+    end
   end
 
   private

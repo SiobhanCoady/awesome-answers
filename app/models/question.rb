@@ -3,7 +3,12 @@
 # All the functionalities we're going to be using in our Question model come from
 # 'ActiveRecord::Base', which leverages Ruby's meta programming features.
 class Question < ApplicationRecord
-  has_many :answers
+  # dependent: :destroy will delete all the associated answers before deleting
+  # the question when you call 'question.destroy'
+  # dependent: :nullify will update the 'question_id' field to 'null' in all the
+  # associated answers before deleting the question when you call 'question.destroy'
+  # remember to always have a dependent option
+  has_many :answers, dependent: :destroy
 
   # has_many :answers adds the following instance methods to this model,
   # Questions:

@@ -20,4 +20,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # def can_edit_question?(question)
+  #   user_signed_in? && question.user == current_user
+  # end
+  # helper_method :can_edit_question?
+
 end

@@ -1,3 +1,11 @@
 <h1>Awesome Answers</h1>
 
 <%= link_to 'New Question', new_question_path %>
+
+<br><br>
+
+<%# the below expects to have a file called 'donuts.png' in the 'public' folder %>
+<%#= image_tag '/donuts.png', style: 'width: 100%' %>
+
+<%# the below expects to have a file called 'donuts.png' in /app/assets/images %>
+<%= image_tag 'donuts.png', style: 'width: 100%' %>

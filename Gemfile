@@ -52,6 +52,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'cowsay', '~> 0.3'
 gem 'faker', github: 'stympy/faker'
 gem 'cancancan', '~> 1.10'
+gem 'bootstrap-sass', '~> 3.3.6'
 
 gem 'colorize', '0.8.1'
 

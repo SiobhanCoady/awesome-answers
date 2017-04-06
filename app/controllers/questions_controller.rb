@@ -86,7 +86,7 @@ class QuestionsController < ApplicationController
       # if the user does not have permission to edit/update the question, redirect
       redirect_to root_path, alert: 'Access denied' unless can? :edit, @question
     elsif @question.update(question_params)
-      redirect_to question_path(@question), notice: 'Question Deleted'
+      redirect_to question_path(@question), notice: 'Question Updated'
     else
       render :edit
     end

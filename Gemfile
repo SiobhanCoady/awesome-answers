@@ -56,6 +56,10 @@ gem 'faker', github: 'stympy/faker'
 gem 'cancancan', '~> 1.10'
 gem 'bootstrap-sass', '~> 3.3.6'
 
+gem 'delayed_job_active_record'
+gem 'sinatra', '2.0.0.rc2'
+gem 'delayed_job_web'
+
 gem 'colorize', '0.8.1'
 
 group :development, :test do

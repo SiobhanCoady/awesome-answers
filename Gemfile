@@ -55,6 +55,7 @@ gem 'cowsay', '~> 0.3'
 gem 'faker', github: 'stympy/faker'
 gem 'cancancan', '~> 1.10'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'font-awesome-rails'
 
 gem 'delayed_job_active_record'
 gem 'sinatra', '2.0.0.rc2'

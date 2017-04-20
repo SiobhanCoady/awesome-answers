@@ -10,6 +10,11 @@ class Question < ApplicationRecord
   # remember to always have a dependent option
   has_many :answers, dependent: :destroy
 
+  has_many :likes, dependent: :destroy
+  has_many :likers, through: :likes, source: :user
+  # 'through: :likes' is referring to the 'has_many :likes' relationship above,
+  # not the 'Like' table.
+
   # has_many :answers adds the following instance methods to this model,
   # Questions:
   # answers
@@ -60,6 +65,14 @@ class Question < ApplicationRecord
 
   def self.recent(number)
     order(created_at: :desc).limit(number)
+  end
+
+  def liked_by?(user)
+    likes.exists?(user: user)
+  end
+
+  def like_for(user)
+    likes.find_by(user: user)
   end
 
   private

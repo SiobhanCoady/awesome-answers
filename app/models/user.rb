@@ -32,6 +32,9 @@ class User < ApplicationRecord
   before_validation :downcase_email
 
   has_many :questions, dependent: :nullify
+  
+  has_many :likes, dependent: :destroy
+  has_many :liked_questions, through: :likes, source: :question
 
   private
 

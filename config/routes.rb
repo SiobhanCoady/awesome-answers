@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   match "/delayed_job" => DelayedJobWeb, :anchor => false, :via => [:get, :post]
 
-  
+
   # When we receive a 'GET' request with URL '/about', then Rails will invoke
   # the 'about_controller' with 'index' action (action is just a method that is
   # defined within a controller)
@@ -32,9 +32,12 @@ Rails.application.routes.draw do
     # When using their helper methods to generate ths path to the routes (e.g.
     # question_answers_path) make sure to include a question_id as argument or
     # a question model.
+    resources :likes, only: [:create, :destroy]
   end
 
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create] do
+    resources :likes, only: [:index]
+  end
 
   resources :sessions, only: [:new, :create] do
     # when you define a route with 'on: :collection' option, it skips having an

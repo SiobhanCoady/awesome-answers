@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     # question_answers_path) make sure to include a question_id as argument or
     # a question model.
     resources :likes, only: [:create, :destroy]
+    resources :votes, only: [:create, :update, :destroy]
   end
 
   resources :users, only: [:new, :create] do

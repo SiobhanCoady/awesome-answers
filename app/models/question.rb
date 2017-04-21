@@ -15,6 +15,9 @@ class Question < ApplicationRecord
   # 'through: :likes' is referring to the 'has_many :likes' relationship above,
   # not the 'Like' table.
 
+  has_many :votes, dependent: :destroy
+  has_many :voters, through: :votes, source: :user
+
   # has_many :answers adds the following instance methods to this model,
   # Questions:
   # answers
@@ -73,6 +76,11 @@ class Question < ApplicationRecord
 
   def like_for(user)
     likes.find_by(user: user)
+  end
+
+  def votes_count
+    # TO DO: Attempt the below in a single query
+    votes.where(is_up: true).count - votes.where(is_up: false).count
   end
 
   private

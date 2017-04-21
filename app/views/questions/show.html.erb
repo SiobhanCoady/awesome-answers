@@ -22,6 +22,35 @@ than crashing your server %>
   <span><%= pluralize(@question.likes.count, 'like') %></span>
 </p>
 
+<p>
+  <% user_vote = @question.votes.find_by_user_id current_user %>
+
+  <% if user_vote.nil? %>
+    <%= link_to fa_icon('angle-up 3x'), question_votes_path(@question, is_up: true),
+                           method: :post %>
+    <br>
+    <%= link_to fa_icon('angle-down 3x'), question_votes_path(@question, is_up: false),
+                             method: :post %>
+  <% elsif user_vote.is_up? %>
+    <%= link_to fa_icon('caret-up 3x'), question_vote_path(@question, user_vote),
+                               method: :delete %>
+    <br>
+    <%= link_to fa_icon('angle-down 3x'), question_vote_path(@question,
+                                                user_vote,
+                                                { is_up: false }),
+                             method: :patch %>
+  <% else %>
+    <%= link_to fa_icon('angle-up 3x'), question_vote_path(@question,
+                                              user_vote,
+                                              { is_up: true }),
+                             method: :patch %>
+    <br>
+    <%= link_to fa_icon('caret-down 3x'), question_vote_path(@question, user_vote),
+                               method: :delete %>
+  <% end %>
+
+  ( <%= @question.votes_count %> )
+</p>
 
 
 <% if can? :edit, @question %>

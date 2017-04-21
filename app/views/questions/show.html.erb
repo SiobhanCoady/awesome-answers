@@ -7,6 +7,8 @@
 <%# '...subject&.name' will return nil if the value of subject is nil, rather
 than crashing your server %>
 
+<p>Tags: <%= @question.tags.pluck(:name).join(', ') %></p>
+
 <p>
   <% if user_signed_in? && can?(:like, @question) %>
     <% if @question.liked_by?(current_user) %>
@@ -28,14 +30,14 @@ than crashing your server %>
   <% if user_vote.nil? %>
     <%= link_to fa_icon('angle-up 3x'), question_votes_path(@question, is_up: true),
                            method: :post %>
-    <br>
-    <%= link_to fa_icon('angle-down 3x'), question_votes_path(@question, is_up: false),
+    <br><span>( <%= @question.votes_count %> )</span>
+    <br><%= link_to fa_icon('angle-down 3x'), question_votes_path(@question, is_up: false),
                              method: :post %>
   <% elsif user_vote.is_up? %>
     <%= link_to fa_icon('caret-up 3x'), question_vote_path(@question, user_vote),
                                method: :delete %>
-    <br>
-    <%= link_to fa_icon('angle-down 3x'), question_vote_path(@question,
+    <br><span>( <%= @question.votes_count %> )</span>
+    <br><%= link_to fa_icon('angle-down 3x'), question_vote_path(@question,
                                                 user_vote,
                                                 { is_up: false }),
                              method: :patch %>
@@ -44,12 +46,10 @@ than crashing your server %>
                                               user_vote,
                                               { is_up: true }),
                              method: :patch %>
-    <br>
-    <%= link_to fa_icon('caret-down 3x'), question_vote_path(@question, user_vote),
+    <br><span>( <%= @question.votes_count %> )</span>
+    <br><%= link_to fa_icon('caret-down 3x'), question_vote_path(@question, user_vote),
                                method: :delete %>
   <% end %>
-
-  ( <%= @question.votes_count %> )
 </p>
 
 

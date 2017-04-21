@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require welcome
+//= require chosen-jquery
 //= require_tree .
 
 // The last three lines in the comments above are the instructions for the

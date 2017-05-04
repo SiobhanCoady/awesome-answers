@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   # resources :contacts, only: [:new, :create]
 
   # 'default: { format: :json }' will prevent looking for a default of html
-  namespace :api, default: { format: :json } do
+  namespace :api, defaults: { format: :json } do
     namespace :v1 do
       # /api/v1/questions.json # => INDEX
       # /api/v1/questions/1.json # => SHOW

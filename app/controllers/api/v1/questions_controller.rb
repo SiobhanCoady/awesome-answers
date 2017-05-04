@@ -1,6 +1,4 @@
-class Api::V1::QuestionsController < ApplicationController
-  before_action :authenticate_user
-
+class Api::V1::QuestionsController < Api::BaseController
   def index
     @questions = Question.last(20)
   end
@@ -13,15 +11,5 @@ class Api::V1::QuestionsController < ApplicationController
     # /views/api/v1/questions/show.json.jbuilder
 
     render json: @question
-  end
-
-  private
-
-  def authenticate_user
-    @user = User.find_by_api_token params[:api_token]
-    # head will send an empty HTTP response with a code that is inferred by the
-    # symbol you pass as an argument to the 'head' method
-    # http://billpatrianakos.me/blog/2013/10/13/list-of-rails-status-code-symbols/
-    head :unauthorized if @user.nil?
   end
 end

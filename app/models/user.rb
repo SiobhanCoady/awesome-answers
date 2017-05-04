@@ -30,6 +30,7 @@ class User < ApplicationRecord
                     format: VALID_EMAIL_REGEX
 
   before_validation :downcase_email
+  before_create :generate_api_token
 
   has_many :questions, dependent: :nullify
 
@@ -40,6 +41,13 @@ class User < ApplicationRecord
   has_many :voted_questions, through: :votes, source: :question
 
   private
+
+  def generate_api_token
+    loop do
+      self.api_token = SecureRandom.urlsafe_base64(32)
+      break unless User.exists?(api_token: self.api_token)
+    end
+  end
 
   def downcase_email
     self.email.downcase! if email.present?

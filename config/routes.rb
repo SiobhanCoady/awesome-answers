@@ -25,6 +25,15 @@ Rails.application.routes.draw do
 
   # resources :contacts, only: [:new, :create]
 
+  # 'default: { format: :json }' will prevent looking for a default of html
+  namespace :api, default: { format: :json } do
+    namespace :v1 do
+      # /api/v1/questions.json # => INDEX
+      # /api/v1/questions/1.json # => SHOW
+      resources :questions, only: [:index, :show]
+    end
+  end
+
   resources :questions do
     resources :answers, only: [:create, :destroy]
     # Nesting resources :answers, only: [:create, :destroy] in resources :questions

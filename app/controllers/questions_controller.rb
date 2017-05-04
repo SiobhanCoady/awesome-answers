@@ -70,6 +70,21 @@ class QuestionsController < ApplicationController
   # }
   def show
     @answer = Answer.new
+    # by default, renders 'questions/show' view
+
+    # 'respond_to' method allows us to render different outcomes depending on
+    # the format of the request. Remember that the default format for any
+    # request in Rails appications is HTML.
+    respond_to do |format|
+      # the below means that if the format of the request is HTML, then we will
+      # render the 'show' template (questions/show.html.erb)
+      format.html { render :show }
+
+      # the below will render 'json' if the format of the request is JSON.
+      # ActiveRecord has a built-in feature to generate JSON from any object of
+      # ActiveRecord.
+      format.json { render json: @question }
+    end
   end
 
   def index

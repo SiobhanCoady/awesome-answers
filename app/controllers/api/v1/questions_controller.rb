@@ -11,6 +11,12 @@ class Api::V1::QuestionsController < Api::BaseController
     # what file will be rendered?
     # /views/api/v1/questions/show.json.jbuilder
 
-    render json: @question
+    # Using 'render' with 'json: @question' will use the Serializer for the
+    # Question model.
+    # render json: @question
+
+    # Using 'render :show' or no render at all will use the corresponding view
+    # for the specified format (e.g. jbuilder for json).
+    render :show
   end
 end

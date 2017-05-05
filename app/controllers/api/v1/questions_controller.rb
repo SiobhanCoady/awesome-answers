@@ -1,6 +1,7 @@
 class Api::V1::QuestionsController < Api::BaseController
+  # http://localhost:3000/api/v1/questions
   def index
-    @questions = Question.last(20)
+    @questions = Question.all
   end
 
   def show

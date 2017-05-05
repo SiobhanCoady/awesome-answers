@@ -52,7 +52,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem 'rack-cors'
 gem 'cowsay', '~> 0.3'
 gem 'faker', github: 'stympy/faker'
 gem 'cancancan', '~> 1.10'

@@ -20,9 +20,19 @@ module AwesomeAnswers
   class Application < Rails::Application
 
     config.active_job.queue_adapter = :delayed_job
-    
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    # CORS
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*' # specifies which domains can do CORS (Cross-Origin Resource
+        # Sharing) requests to our Rails server
+        # '*' means all domains
+        resource '*', :headers => :any, :methods => [:get, :post, :options, :delete, :put, :patch]
+      end
+    end
   end
 end

@@ -51,6 +51,8 @@ class Question < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: [:slugged, :history, :finders]
 
+  mount_uploader :image, ImageUploader
+
   validates(:title, { presence: { message: 'must be present!' },
   # can use your own message instead of just 'true'
                       uniqueness: true })

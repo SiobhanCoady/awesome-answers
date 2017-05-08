@@ -9,6 +9,8 @@ than crashing your server %>
 
 <p>Tags: <%= @question.tags.pluck(:name).join(', ') %></p>
 
+<p><%= image_tag @question.image.url(:large) if @question.image.present? %></p>
+
 <p>
   <% if user_signed_in? && can?(:like, @question) %>
     <% if @question.liked_by?(current_user) %>

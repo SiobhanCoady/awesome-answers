@@ -20,5 +20,6 @@ with those values. %>
   <%= f.input :body, required: false %>
   <%= f.association :tags, input_html: { class: 'chosen-select input-new-line',
                                          style: 'width: 400px' } %>
+  <%= f.input :image %>
   <%= f.submit class: 'btn btn-primary' %>
 <% end %>

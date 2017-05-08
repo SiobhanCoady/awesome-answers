@@ -48,6 +48,9 @@ class Question < ApplicationRecord
 
   belongs_to :user, optional: true
 
+  extend FriendlyId
+  friendly_id :title, use: [:slugged, :history, :finders]
+
   validates(:title, { presence: { message: 'must be present!' },
   # can use your own message instead of just 'true'
                       uniqueness: true })
@@ -85,6 +88,12 @@ class Question < ApplicationRecord
     # TO DO: Attempt the below in a single query
     votes.where(is_up: true).count - votes.where(is_up: false).count
   end
+
+  # Rails uses 'to_param' method in ActiveRecord to know what to use for the
+  # URL. By default, 'to_param' method will return the 'id'.
+  # def to_param
+  #   "#{id.to_s}-#{title}".parameterize
+  # end
 
   private
 

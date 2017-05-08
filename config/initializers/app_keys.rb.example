@@ -1,3 +1,5 @@
 # duplicate this file with name app_keys.rb and put real value below
 ENV["EMAIL_USER_NAME"] = ''
 ENV["EMAIL_PASSWORD"] = ''
+ENV['AWS_ACCESS_KEY_ID'] = ''
+ENV['AWS_SECRET_ACCESS_KEY'] = ''

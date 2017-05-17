@@ -23,11 +23,13 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :uid, uniqueness: { scope: :provider }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true,
                     uniqueness: { case_sensitive: false },
-                    format: VALID_EMAIL_REGEX
+                    format: VALID_EMAIL_REGEX,
+                    unless: :from_omniauth?
 
   before_validation :downcase_email
   before_create :generate_api_token
@@ -40,7 +42,38 @@ class User < ApplicationRecord
   has_many :votes, dependent: :destroy
   has_many :voted_questions, through: :votes, source: :question
 
+  serialize :oauth_raw_data
+
+  def self.find_by_oauth(omniauth_data)
+    self.where(
+      uid: omniauth_data['uid'],
+      provider: omniauth_data['provider']
+    ).first
+  end
+
+  def self.create_from_omniauth(omniauth_data)
+    full_name = omniauth_data['info']['name'].split(/\s+/)
+    self.create(
+      uid: omniauth_data['uid'],
+      provider: omniauth_data['provider'],
+      first_name: full_name.first,
+      last_name: full_name.last,
+      oauth_token: omniauth_data['credentials']['token'],
+      oauth_secret: omniauth_data['credentials']['secret'],
+      oauth_raw_data: omniauth_data,
+      password: SecureRandom.hex(16)
+    )
+  end
+
+  def signed_in_with_twitter?
+    uid.present? && provider == 'twitter'
+  end
+
   private
+
+  def from_omniauth?
+    uid.present? && provider.present?
+  end
 
   def generate_api_token
     loop do

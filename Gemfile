@@ -72,6 +72,9 @@ gem 'chosen-rails'
 
 gem 'colorize', '0.8.1'
 
+gem 'omniauth-twitter'
+gem 'twitter'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
@@ -83,6 +86,8 @@ group :development do
   gem 'awesome_print'
   gem 'hirb'
   gem 'rails-erd'
+  gem 'pry'
+  gem 'pry-rails'
 
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'

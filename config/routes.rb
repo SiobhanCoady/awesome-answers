@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get '/auth/twitter', as: :sign_in_with_twitter
+  get '/auth/:provider/callback' => 'callbacks#index'
+
   match "/delayed_job" => DelayedJobWeb, :anchor => false, :via => [:get, :post]
 
 
